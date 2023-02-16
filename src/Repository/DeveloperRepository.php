@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Developper;
+use App\Entity\Developer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Developper>
+ * @extends ServiceEntityRepository<Developer>
  *
- * @method Developper|null find($id, $lockMode = null, $lockVersion = null)
- * @method Developper|null findOneBy(array $criteria, array $orderBy = null)
- * @method Developper[]    findAll()
- * @method Developper[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Developer|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Developer|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Developer[]    findAll()
+ * @method Developer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DevelopperRepository extends ServiceEntityRepository
+class DeveloperRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Developper::class);
+        parent::__construct($registry, Developer::class);
     }
 
-    public function save(Developper $entity, bool $flush = false): void
+    public function save(Developer $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class DevelopperRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Developper $entity, bool $flush = false): void
+    public function remove(Developer $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class DevelopperRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Developper[] Returns an array of Developper objects
+//     * @return Developer[] Returns an array of Developer objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class DevelopperRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Developper
+//    public function findOneBySomeField($value): ?Developer
 //    {
 //        return $this->createQueryBuilder('d')
 //            ->andWhere('d.exampleField = :val')

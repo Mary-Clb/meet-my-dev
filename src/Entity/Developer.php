@@ -2,12 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\DevelopperRepository;
+use App\Repository\DeveloperRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\User;
 
-#[ORM\Entity(repositoryClass: DevelopperRepository::class)]
-class Developper extends User
+#[ORM\Entity(repositoryClass: DeveloperRepository::class)]
+class Developer extends User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -60,6 +59,18 @@ class Developper extends User
     public function setExperience(int $experience): self
     {
         $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

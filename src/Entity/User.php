@@ -4,10 +4,16 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name:"type", type:"string")]
+#[ORM\DiscriminatorMap(['developer' => Developer::class, 'company' => Company::class])]
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -21,11 +27,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(lenght: 500)]
+    private ?string $presentation = null;
+
+    #[ORM\Column(length: 30, unique: true)]
+    private ?string $telephone = null;
+
+    #[ORM\Column(length: 150, unique: true)]
+    private ?string $mail = null;
 
     public function getId(): ?int
     {
@@ -95,5 +107,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Get the value of mail
+     */ 
+    public function getMail(): string
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Set the value of mail
+     *
+     * @return  self
+     */ 
+    public function setMail($mail): self
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of telephone
+     */ 
+    public function getTelephone(): string
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * Set the value of telephone
+     *
+     * @return  self
+     */ 
+    public function setTelephone($telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of presentation
+     */ 
+    public function getPresentation(): string
+    {
+        return $this->presentation;
+    }
+
+    /**
+     * Set the value of presentation
+     *
+     * @return  self
+     */ 
+    public function setPresentation($presentation): self
+    {
+        $this->presentation = $presentation;
+
+        return $this;
     }
 }
