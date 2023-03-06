@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
@@ -19,7 +21,7 @@ class Company extends User
     #[ORM\Column(length: 50)]
     private ?string $siret = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $localisation = null;
 
     #[ORM\Column]
@@ -27,6 +29,14 @@ class Company extends User
 
     #[ORM\Column]
     private ?bool $publique = null;
+
+    #[ORM\ManyToMany(targetEntity: Activity::class, inversedBy: 'companies')]
+    private Collection $Activities;
+
+    public function __construct()
+    {
+        $this->Activities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -101,6 +111,30 @@ class Company extends User
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Activity>
+     */
+    public function getActivities(): Collection
+    {
+        return $this->Activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->Activities->contains($activity)) {
+            $this->Activities->add($activity);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        $this->Activities->removeElement($activity);
 
         return $this;
     }

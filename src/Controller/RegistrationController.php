@@ -45,6 +45,11 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            switch($type) {
+                case "développeur": $user->setRoles( array('ROLE_DEV') );
+                    break;
+                case "entreprise" : $user->setRoles( array('ROLE_COMPANY') );
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -63,7 +68,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-     #[Route('/home', name: 'home')]
+     #[Route('/', name: 'home')]
     public function home(): Response
     {
         return $this->render('base.html.twig', [

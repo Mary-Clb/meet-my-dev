@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DeveloperRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DeveloperRepository::class)]
@@ -21,6 +23,14 @@ class Developer extends User
 
     #[ORM\Column]
     private ?int $experience = null;
+
+    #[ORM\ManyToMany(targetEntity: Speciality::class, inversedBy: 'developers')]
+    private Collection $specialities;
+
+    public function __construct()
+    {
+        $this->specialities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -71,6 +81,30 @@ class Developer extends User
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Speciality>
+     */
+    public function getSpecialities(): Collection
+    {
+        return $this->specialities;
+    }
+
+    public function addSpeciality(Speciality $speciality): self
+    {
+        if (!$this->specialities->contains($speciality)) {
+            $this->specialities->add($speciality);
+        }
+
+        return $this;
+    }
+
+    public function removeSpeciality(Speciality $speciality): self
+    {
+        $this->specialities->removeElement($speciality);
 
         return $this;
     }
