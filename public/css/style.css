@@ -7,6 +7,11 @@ body{
     background: rgba(255, 255, 255, 0.1)
 }
 
+#loginForm, #registerForm {
+    background: rgba(255, 255, 255, 0.1);
+    border: none !important;
+}
+
 .nav-link{
     color: white !important;
     font-weight: 500;

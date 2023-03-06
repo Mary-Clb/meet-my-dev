@@ -57,7 +57,7 @@ class CompanyType extends AbstractType
                 ],
             ])
             ->add('Enregistrer', SubmitType::class, [
-                'attr' => ['class' => 'btn-primary btn registration_btn'],
+                'attr' => ['class' => 'btn btn-lg btn-light mt-3'],
             ]);
         ;
     }
@@ -106,9 +106,9 @@ class DevType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('Enregistrer', SubmitType::class, [
-                'attr' => ['class' => 'btn-primary btn registration_btn'],
-            ]);
+            // ->add('Enregistrer', SubmitType::class, [
+            //     'attr' => ['class' => 'btn btn-lg btn-light mt-3'],
+            // ]);
         ;
     }
 

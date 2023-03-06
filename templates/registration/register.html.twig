@@ -4,10 +4,12 @@
 
 {% block body %}
 
-<h1>Créer un compte {{ type }}</h1>
 
-    {{ form_start(registrationForm) }}
-        {{form(registrationForm)}}
-    {{ form_end(registrationForm) }}
+    <div class="d-flex justify-content-center p-3 mt-3">
+        {{ form_start(registrationForm, {'attr': {'id': 'registerForm', 'class' : 'border p-3 rounded-3'}}) }}
+        <h1 class="h3 mb-3 font-weight-normal">Créer un compte {{ type }}</h1>
+            {{form(registrationForm)}}
+        {{ form_end(registrationForm) }}
+    </div>
 
 {% endblock %}
