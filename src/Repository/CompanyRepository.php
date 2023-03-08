@@ -63,4 +63,9 @@ class CompanyRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function getAllCompanies(): array 
+    {
+        return $this->findAll();
+    }
+
 }

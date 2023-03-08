@@ -3,8 +3,8 @@ body{
     color:white;
 }
 
-.navbar{
-    background: rgba(255, 255, 255, 0.1)
+.navbar, .cardContainer{
+    background: rgba(255, 255, 255, 0.1) !important;
 }
 
 #loginForm, #registerForm {
@@ -27,4 +27,7 @@ body{
     text-decoration: none;
     color:black !important;
 
+}
+.card{
+    color: black;
 }
