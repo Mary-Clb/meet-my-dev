@@ -56,7 +56,7 @@ class CompanyType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('Enregistrer', SubmitType::class, [
+            ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-lg btn-light mt-3'],
             ]);
         ;
@@ -83,7 +83,6 @@ class DevType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
-                'label' => 'Password',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
@@ -106,9 +105,9 @@ class DevType extends AbstractType
                     ]),
                 ],
             ])
-            // ->add('Enregistrer', SubmitType::class, [
-            //     'attr' => ['class' => 'btn btn-lg btn-light mt-3'],
-            // ]);
+            ->add('save', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-lg btn-light mt-3'],
+            ]);
         ;
     }
 
