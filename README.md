@@ -1,6 +1,6 @@
 # MEET MY DEV
 
-Symfony project for CSI training - Meeting application between companies &amp; developers
+Symfony project for CSI training - Meeting web application between companies & developers
 
 # How to install
 
@@ -12,4 +12,4 @@ Install (uncomment) those extentions in your php.ini
 
 Installer (décommenter) ces extentions dans votre php.ini
 -  `pdo_mysql`
--  `intl` 
+-  `intl`
