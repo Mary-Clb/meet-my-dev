@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230306101321 extends AbstractMigration
+final class Version20230308130306 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,9 +21,9 @@ final class Version20230306101321 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE activity (id INT AUTO_INCREMENT NOT NULL, label VARCHAR(155) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE company (id INT NOT NULL, raison_sociale VARCHAR(255) NOT NULL, siret VARCHAR(50) NOT NULL, localisation VARCHAR(255) DEFAULT NULL, employes INT NOT NULL, publique TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE company (id INT NOT NULL, name VARCHAR(255) NOT NULL, siret VARCHAR(50) NOT NULL, location VARCHAR(255) DEFAULT NULL, employees INT NOT NULL, publique TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE company_activity (company_id INT NOT NULL, activity_id INT NOT NULL, INDEX IDX_B4E31C37979B1AD6 (company_id), INDEX IDX_B4E31C3781C06096 (activity_id), PRIMARY KEY(company_id, activity_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE developer (id INT NOT NULL, nom VARCHAR(100) NOT NULL, prenom VARCHAR(100) NOT NULL, experience INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE developer (id INT NOT NULL, name VARCHAR(100) NOT NULL, firstname VARCHAR(100) NOT NULL, experience INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE developer_speciality (developer_id INT NOT NULL, speciality_id INT NOT NULL, INDEX IDX_3969F84864DD9267 (developer_id), INDEX IDX_3969F8483B5A08D7 (speciality_id), PRIMARY KEY(developer_id, speciality_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE speciality (id INT AUTO_INCREMENT NOT NULL, label VARCHAR(50) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, presentation VARCHAR(500) DEFAULT NULL, telephone VARCHAR(30) DEFAULT NULL, mail VARCHAR(150) NOT NULL, type VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), UNIQUE INDEX UNIQ_8D93D649450FF010 (telephone), UNIQUE INDEX UNIQ_8D93D6495126AC48 (mail), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

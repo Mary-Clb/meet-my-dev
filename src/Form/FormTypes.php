@@ -24,11 +24,11 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [])
-            ->add('raisonSociale', TextType::class, [])
+            ->add('name', TextType::class, [])
             ->add('siret', TextType::class, [])
-            ->add('localisation', TextType::class, [])
+            ->add('location', TextType::class, [])
             ->add('mail', TextType::class, [])
-            ->add('employes', IntegerType::class, ['attr' => ['min' => 0]])
+            ->add('employees', IntegerType::class, ['attr' => ['min' => 0]])
             ->add('publique', CheckboxType::class, ['required' => false])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Password',
@@ -76,8 +76,8 @@ class DevType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [])
-            ->add('nom', TextType::class, [])
-            ->add('prenom', TextType::class, [])
+            ->add('name', TextType::class, [])
+            ->add('firstname', TextType::class, [])
             ->add('mail', TextType::class, [])
             ->add('experience', IntegerType::class, ['attr' => ['min' => 0]])
             ->add('plainPassword', PasswordType::class, [
@@ -118,4 +118,3 @@ class DevType extends AbstractType
         ]);
     }
 }
-

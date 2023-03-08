@@ -5,25 +5,35 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use App\Repository\DeveloperRepository;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    #[Route('/{search}', name: 'app_home_search')]
+    #[Route('/{search}/{page}', name: 'app_home_search_pages')]
+    public function index(?string $search, ?int $page, Request $request, DeveloperRepository $repoDev): Response
     {   
         $user_role = $this->getUser()->getRoles();
+        $role = "";
+        $searchResult = [];
 
         if (in_array('ROLE_DEV', $user_role)) {
-            return $this->render('home/dev.html.twig');
+            $role = "dev";
         }
         if (in_array('ROLE_COMPANY', $user_role)) {
-            return $this->render('home/company.html.twig');
-
+            $role = "company";
         }
 
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-            'locale' => $translator->getLocale()
+        $search = $request->request->get("search");
+        if($search){
+            $searchResult = $repoDev->findByString($search, $page, 10);
+            dd($searchResult);
+        }
+
+        return $this->render("home/$role.html.twig", [
+            'searchResult' => $searchResult
         ]);
     }
 }

@@ -16,16 +16,16 @@ class Company extends User
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $raison_sociale = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 50)]
     private ?string $siret = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $localisation = null;
+    private ?string $location = null;
 
     #[ORM\Column]
-    private ?int $employes = null;
+    private ?int $employees = null;
 
     #[ORM\Column]
     private ?bool $publique = null;
@@ -43,14 +43,14 @@ class Company extends User
         return $this->id;
     }
 
-    public function getRaisonSociale(): ?string
+    public function getname(): ?string
     {
-        return $this->raison_sociale;
+        return $this->name;
     }
 
-    public function setRaisonSociale(string $raison_sociale): self
+    public function setname(string $name): self
     {
-        $this->raison_sociale = $raison_sociale;
+        $this->name = $name;
 
         return $this;
     }
@@ -67,26 +67,26 @@ class Company extends User
         return $this;
     }
 
-    public function getLocalisation(): ?string
+    public function getlocation(): ?string
     {
-        return $this->localisation;
+        return $this->location;
     }
 
-    public function setLocalisation(string $localisation): self
+    public function setlocation(string $location): self
     {
-        $this->localisation = $localisation;
+        $this->location = $location;
 
         return $this;
     }
 
-    public function getEmployes(): ?int
+    public function getemployees(): ?int
     {
-        return $this->employes;
+        return $this->employees;
     }
 
-    public function setEmployes(int $employes): self
+    public function setemployees(int $employees): self
     {
-        $this->employes = $employes;
+        $this->employees = $employees;
 
         return $this;
     }

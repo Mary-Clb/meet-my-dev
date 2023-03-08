@@ -39,6 +39,23 @@ class DeveloperRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByString(string $search, $page = 0, $pageLimit = 10): array
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                "SELECT d FROM App\Entity\Developer d
+                WHERE d.firstname LIKE :search 
+                OR d.name Like :search 
+                OR d.username LIKE :search 
+                OR d.mail LIKE :search 
+                OR d.presentation LIKE :search"
+            )
+            ->setParameter('search', "%$search%")
+            ->setFirstResult($page * $pageLimit)
+            ->setMaxResults($pageLimit)
+            ->getResult();
+    }
+
 //    /**
 //     * @return Developer[] Returns an array of Developer objects
 //     */

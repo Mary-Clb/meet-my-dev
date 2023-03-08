@@ -16,10 +16,10 @@ class Developer extends User
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $nom = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $prenom = null;
+    private ?string $firstname = null;
 
     #[ORM\Column]
     private ?int $experience = null;
@@ -37,26 +37,26 @@ class Developer extends User
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getname(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setname(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getfirstname(): ?string
     {
-        return $this->prenom;
+        return $this->firstname;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setfirstname(string $firstname): self
     {
-        $this->prenom = $prenom;
+        $this->firstname = $firstname;
 
         return $this;
     }
