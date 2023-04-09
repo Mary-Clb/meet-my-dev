@@ -1,45 +1,61 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container">
+
+	<div class="container my-3">
 		<div class="row">
 			<div class="col-md-6">
 				<h1>{{ user.username }}'s Profile</h1>
 				<p>{{ user.presentation }}</p>
 				<ul>
                     <li>{{ app.user.name }}
-                        {{ app.user.firstname }}
+                        {{ app.user.firstname ?? '' }}
                     </li>
 					<li>
 						<strong>Email:</strong>
 						{{ user.mail }}</li>
 					<li>
 						<strong>Telephone:</strong>
-						{{ user.telephone }}</li>
+						{{ user.telephone }}
+					</li>
 				</ul>
 			</div>
-			<div class="col-md-6">
-				<h2>Developer Info</h2>
-						<strong>Experience:</strong>
-						{{ app.user.experience }}
-						years</p>
-					<p>
-						<strong>Specialities:</strong>
-					</p>
-					<ul>
-						{% for speciality in app.user.specialities %}
-							<li>{{ speciality.name }}</li>
-						{% endfor %}
-					</ul>
-                    {# <p>
-                        <strong>Companies:</strong>
-                    </p>
-                    <ul>
-                        {% for speciality in app.user.dev.specialities %}
-                            <li>{{ speciality.name }}</li>
-                        {% endfor %}
-                    </ul> #}
-			</div>
+			{% if is_granted('ROLE_COMPANY') %}
+				<div class="col-md-6">
+					<h2>Company Info</h2>
+							<strong>Location:</strong>
+							{{ user.location }}
+						<p>
+							<strong>Activities:</strong>
+						</p>
+						<ul>
+							{% for activity in app.user.activities %}
+								<li>{{ activity.label }}</li>
+							{% endfor %}
+						</ul>
+				</div>
+			{% endif %}
+			{% if is_granted('ROLE_DEV') %}
+				<div class="col-md-6">
+					<h2>Developer Info</h2>
+							<strong>Experience:</strong>
+							{{ app.user.experience }}
+							years</p>
+						<p>
+							<strong>Specialities:</strong>
+						</p>
+						<ul>
+							{% for speciality in app.user.specialities %}
+								<li>{{ speciality.name }}</li>
+							{% endfor %}
+						</ul>
+				</div>
+				{% endif %}
 		</div>
+			<button type="button" class="btn btn-light my-3" data-toggle="modal" data-target="#editProfileModal">
+  				Edit Profile
+			</button>
 	</div>
+
+	
 {% endblock %}
