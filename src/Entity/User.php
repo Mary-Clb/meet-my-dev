@@ -12,8 +12,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name:"type", type:"string")]
 #[ORM\DiscriminatorMap(['developer' => Developer::class, 'company' => Company::class])]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username', groups: ["Unique"])]
+#[UniqueEntity(fields: ['mail'], message: 'There is already an account with this email', groups: ["Unique"])]
+#[UniqueEntity(fields: ['telephone'], message: 'There is already an account with this telephone number', groups: ["Unique"])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

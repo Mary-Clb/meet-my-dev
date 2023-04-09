@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class CompanyType extends AbstractType
 {
@@ -27,7 +28,7 @@ class CompanyType extends AbstractType
             ->add('name', TextType::class, [])
             ->add('siret', TextType::class, [])
             ->add('location', TextType::class, [])
-            ->add('mail', TextType::class, [])
+            ->add('mail', EmailType::class, [])
             ->add('employees', IntegerType::class, ['attr' => ['min' => 0]])
             ->add('publique', CheckboxType::class, ['required' => false])
             ->add('plainPassword', PasswordType::class, [
@@ -78,7 +79,7 @@ class DevType extends AbstractType
             ->add('username', TextType::class, [])
             ->add('name', TextType::class, [])
             ->add('firstname', TextType::class, [])
-            ->add('mail', TextType::class, [])
+            ->add('mail', EmailType::class, [])
             ->add('experience', IntegerType::class, ['attr' => ['min' => 0]])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,

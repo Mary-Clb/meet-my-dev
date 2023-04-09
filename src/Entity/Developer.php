@@ -73,24 +73,12 @@ class Developer extends User
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Speciality>
      */
-    public function getSpecialities(): Collection
+    public function getSpecialities(): array
     {
-        return $this->specialities;
+        return $this->specialities->toArray();
     }
 
     public function addSpeciality(Speciality $speciality): self

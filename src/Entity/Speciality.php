@@ -6,6 +6,7 @@ use App\Repository\SpecialityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SpecialityRepository::class)]
 class Speciality
@@ -13,9 +14,11 @@ class Speciality
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['list_languages'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Groups(['list_languages'])]
     private ?string $label = null;
 
     #[ORM\ManyToMany(targetEntity: Developer::class, mappedBy: 'specialities')]

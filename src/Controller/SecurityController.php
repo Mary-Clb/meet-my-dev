@@ -6,6 +6,7 @@ use App\Entity\Company;
 use App\Entity\Developer;
 use App\Form\DevType;
 use App\Form\CompanyType;
+use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use App\Repository\UserRepository;
 
 class SecurityController extends AbstractController
 {
@@ -41,7 +43,7 @@ class SecurityController extends AbstractController
 
     #[Route('/registerDev', name: 'app_register_dev')]
     #[Route('/registerCompany', name: 'app_register_company')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         switch($request->getPathInfo()){
             case "/registerDev":
@@ -56,8 +58,9 @@ class SecurityController extends AbstractController
                 break;
             default: return $this->redirectToRoute("home");
         }
-
         $form->handleRequest($request);
+
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
@@ -81,7 +84,7 @@ class SecurityController extends AbstractController
                 $request
             );
         }
-        
+
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
             'type' => $type,

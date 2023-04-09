@@ -39,6 +39,15 @@ class SpecialityRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByLike(string $filter){
+        $qb = $this->createQueryBuilder('s')
+            ->where('s.label LIKE :filter')
+            ->setParameter('filter', '%'.$filter.'%')
+            ->orderBy('s.label', 'ASC')
+            ->getQuery();
+
+        return $qb->execute();
+    }
 //    /**
 //     * @return Speciality[] Returns an array of Speciality objects
 //     */
