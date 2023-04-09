@@ -11,27 +11,23 @@ use App\Repository\DeveloperRepository;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    // #[Route('/search/{search}', name: 'app_home_search')]
-    // #[Route('/search/{search}/{page}', name: 'app_home_search_pages')]
-    public function index(/*?string $search, ?int $page, */Request $request, DeveloperRepository $repoDev): Response
-    {   
-        $user_role = $this->getUser()->getRoles();
-        $role = "";
+    #[Route('/search/{search}', name: 'app_home_search')]
+    #[Route('/search/{search}/{page}', name: 'app_home_search_pages')]
+    public function index(?string $search = '', ?int $page = 0, Request $request, DeveloperRepository $repoDev): Response
+    {
         $searchResult = [];
 
         $search = $request->request->get("search");
         if($search){
-            $searchResult = $repoDev->findByString($search/*, $page, 10*/);
+            $searchResult = $repoDev->findByString($search, $page);
         }
-
-        if (in_array('ROLE_DEV', $user_role)) {
-            $role = "dev";
+        
+        if ($this->isGranted('ROLE_DEV')) {
             return $this->render("home/dev.html.twig", [
                 'searchResult' => $searchResult
             ]);
         }
-        if (in_array('ROLE_COMPANY', $user_role)) {
-            $role = "company";
+        if ($this->isGranted('ROLE_COMPANY')) {
             return $this->render("home/company.html.twig", [
                 'searchResult' => $searchResult
             ]);

@@ -132,7 +132,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of telephone
      */ 
-    public function getTelephone(): string
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
@@ -152,7 +152,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of presentation
      */ 
-    public function getPresentation(): string
+    public function getPresentation(): ?string
     {
         return $this->presentation;
     }

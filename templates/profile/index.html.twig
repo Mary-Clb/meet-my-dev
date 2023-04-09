@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h1>{{ user.username }}'s Profile</h1>
+				<p>{{ user.presentation }}</p>
+				<ul>
+                    <li>{{ app.user.name }}
+                        {{ app.user.firstname }}
+                    </li>
+					<li>
+						<strong>Email:</strong>
+						{{ user.mail }}</li>
+					<li>
+						<strong>Telephone:</strong>
+						{{ user.telephone }}</li>
+				</ul>
+			</div>
+			<div class="col-md-6">
+				<h2>Developer Info</h2>
+						<strong>Experience:</strong>
+						{{ app.user.experience }}
+						years</p>
+					<p>
+						<strong>Specialities:</strong>
+					</p>
+					<ul>
+						{% for speciality in app.user.specialities %}
+							<li>{{ speciality.name }}</li>
+						{% endfor %}
+					</ul>
+                    {# <p>
+                        <strong>Companies:</strong>
+                    </p>
+                    <ul>
+                        {% for speciality in app.user.dev.specialities %}
+                            <li>{{ speciality.name }}</li>
+                        {% endfor %}
+                    </ul> #}
+			</div>
+		</div>
+	</div>
+{% endblock %}

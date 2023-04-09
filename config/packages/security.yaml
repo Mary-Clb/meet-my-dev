@@ -40,13 +40,16 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-
+    
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER, ROLE_DEV, ROLE_COMPANY]
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/login, role: PUBLIC_ACCESS }
         - { path: ^/registerDev, role: PUBLIC_ACCESS }
         - { path: ^/registerCompany, role: PUBLIC_ACCESS }
+        - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/, role: ROLE_USER }
 
 when@test:
