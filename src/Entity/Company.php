@@ -118,7 +118,7 @@ class Company extends User
     /**
      * @return Collection<int, Activity>
      */
-    public function getactivitiess(): Collection
+    public function getactivities(): Collection
     {
         return $this->activities;
     }
@@ -134,7 +134,7 @@ class Company extends User
 
     public function removeActivity(Activity $activity): self
     {
-        $this->Activities->removeElement($activity);
+        $this->activities->removeElement($activity);
 
         return $this;
     }

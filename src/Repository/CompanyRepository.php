@@ -48,8 +48,7 @@ class CompanyRepository extends ServiceEntityRepository
         ->leftJoin('u.activities', 'a')
         ->where($qb->expr()->orX(
             $qb->expr()->like('u.username', ':searchString'),
-            $qb->expr()->like('u.mail', ':searchString'),
-            $qb->expr()->like('u.telephone', ':searchString'),
+            $qb->expr()->like('u.presentation', ':searchString'),
             $qb->expr()->like('a.label', ':searchString')
         ))
         ->setParameter('searchString', '%'.$searchString.'%');
