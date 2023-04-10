@@ -28,8 +28,10 @@ class HomeController extends AbstractController
             }
         }else{
             if ($this->isGranted('ROLE_COMPANY')){
-            $searchResult = $developerRepository->findAll();
-        }
+                $searchResult = $developerRepository->findAll();
+            } elseif ($this->isGranted('ROLE_DEV')){
+                $searchResult = $companyRepository->findAll();
+            }
         }
 
         
