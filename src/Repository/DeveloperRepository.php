@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Developer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @extends ServiceEntityRepository<Developer>
@@ -39,21 +40,24 @@ class DeveloperRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByString(string $search, $page = 0, $pageLimit = 10): array
+    public function findByString(string $searchString, $page = 0, $pageLimit = 10): array
     {
-        return $this->getEntityManager()
-            ->createQuery(
-                "SELECT d FROM App\Entity\Developer d
-                WHERE d.firstname LIKE :search 
-                OR d.name Like :search 
-                OR d.username LIKE :search 
-                OR d.mail LIKE :search 
-                OR d.presentation LIKE :search"
-            )
-            ->setParameter('search', "%$search%")
-            ->setFirstResult($page * $pageLimit)
-            ->setMaxResults($pageLimit)
-            ->getResult();
+        $qb = $this->getEntityManager()->createQUeryBuilder();
+
+        $qb->select('u')
+        ->from('App\Entity\Developer', 'u')
+        ->leftJoin('u.specialities', 'l')
+        ->where($qb->expr()->orX(
+            $qb->expr()->like('u.username', ':searchString'),
+            $qb->expr()->like('u.mail', ':searchString'),
+            $qb->expr()->like('u.telephone', ':searchString'),
+            $qb->expr()->like('l.label', ':searchString')
+        ))
+        ->setParameter('searchString', '%'.$searchString.'%');
+
+        $result = array_chunk($qb->getQuery()->getResult(), $pageLimit, true);
+
+        return isset($result[$page ?: 0]) ? $result[$page ?: 0] : $result;
     }
 
 //    /**

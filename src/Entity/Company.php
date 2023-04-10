@@ -31,11 +31,11 @@ class Company extends User
     private ?bool $publique = null;
 
     #[ORM\ManyToMany(targetEntity: Activity::class, inversedBy: 'companies')]
-    private Collection $Activities;
+    private Collection $activities;
 
     public function __construct()
     {
-        $this->Activities = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,15 +118,15 @@ class Company extends User
     /**
      * @return Collection<int, Activity>
      */
-    public function getActivities(): Collection
+    public function getactivitiess(): Collection
     {
-        return $this->Activities;
+        return $this->activities;
     }
 
     public function addActivity(Activity $activity): self
     {
-        if (!$this->Activities->contains($activity)) {
-            $this->Activities->add($activity);
+        if (!$this->activities->contains($activity)) {
+            $this->activities->add($activity);
         }
 
         return $this;

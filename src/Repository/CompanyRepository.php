@@ -39,6 +39,26 @@ class CompanyRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByString(string $searchString, $page = 0, $pageLimit = 10): array
+    {
+        $qb = $this->getEntityManager()->createQUeryBuilder();
+
+        $qb->select('u')
+        ->from('App\Entity\Company', 'u')
+        ->leftJoin('u.activities', 'a')
+        ->where($qb->expr()->orX(
+            $qb->expr()->like('u.username', ':searchString'),
+            $qb->expr()->like('u.mail', ':searchString'),
+            $qb->expr()->like('u.telephone', ':searchString'),
+            $qb->expr()->like('a.label', ':searchString')
+        ))
+        ->setParameter('searchString', '%'.$searchString.'%');
+
+        $result = array_chunk($qb->getQuery()->getResult(), $pageLimit, true);
+
+        return isset($result[$page ?: 0]) ? $result[$page ?: 0] : $result;
+    }
+
 //    /**
 //     * @return Company[] Returns an array of Company objects
 //     */
