@@ -26,10 +26,18 @@ class HomeController extends AbstractController
             }elseif($this->isGranted('ROLE_COMPANY')){
                 $searchResult = $developerRepository->findByString($search, $page);  
             }
+        }else{
+            if ($this->isGranted('ROLE_COMPANY')){
+            $searchResult = $developerRepository->findAll();
+        }
         }
 
+        
+
+        
+
         return $this->render("home/index.html.twig", [
-            'result' => $searchResult
+            'result'  => $searchResult,
         ]);
     }
 }

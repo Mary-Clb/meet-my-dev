@@ -83,6 +83,7 @@ class EditProfileType extends AbstractType
                 ])
                 ->add('publique', CheckboxType::class, [
                     'label' => 'Publique',
+                    'required' => false
                 ]);       
         }
         

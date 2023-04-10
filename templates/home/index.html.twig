@@ -29,27 +29,21 @@
             </div>
 {% endif %}
 {% if is_granted('ROLE_COMPANY') %}
-
-        <div class="col-sm-6 mb-3 mb-sm-0">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
+    {% for dev in result %}
         <div class="col-sm-6">
-            <div class="card">
+            <div class="card my-3">
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <h5 class="card-title">{{ dev.name }} {{ dev.firstname }}</h5>
+                    <p class="card-text">{{ dev.presentation ?? "pas d'informations" }}</p>
+                    {% for spe in dev.specialities %}
+                        <span> {{ spe.label }} </span>
+                    {% endfor %}
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
-            </div>
+            </div>    
         </div>
-
-    {% endif %}
+    {% endfor %}
+{% endif %}
 </div>
 
 {% endblock %}
