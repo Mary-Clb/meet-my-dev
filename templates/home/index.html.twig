@@ -3,7 +3,6 @@
 {% block title %}Meet My Dev{% endblock %}
 
 {% block body %}
-{% include 'home/search.html.twig' %}
 
 <div class="row my-3 cardContainer py-3 px-1 rounded-3">
 {% if is_granted('ROLE_DEV') %}
@@ -16,7 +15,7 @@
                                 {% for activity in comp.activities %}
                                     <span> {{ activity.label }} </span>
                                 {% endfor %}
-                        <a href="#" class="btn btn-dark">Voir profil</a>
+                        <a href="/profile/{{ comp.id }}" class="btn btn-dark"> Voir profil</a>
                     </div>
                 </div>
             </div>
@@ -32,7 +31,7 @@
                             {% for spe in dev.specialities %}
                                 <span> {{ spe.label }} </span>
                             {% endfor %}
-                        <a href="#" class="btn btn-dark">Voir profil</a>
+                        <a href="/profile/{{ dev.id }}" class="btn btn-dark">Voir profil</a>
                 </div>
             </div>    
         </div>

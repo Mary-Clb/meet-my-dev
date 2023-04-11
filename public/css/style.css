@@ -35,3 +35,7 @@ body{
 .modal-content {
     color: black;
 }
+
+.bg-op {
+    opacity: 0.3;
+}

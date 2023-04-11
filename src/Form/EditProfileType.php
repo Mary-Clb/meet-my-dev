@@ -65,7 +65,7 @@ class EditProfileType extends AbstractType
                     'multiple' => true,
                     'required' => false,
                     'placeholder' => 'Choose an language',
-                    'choices' => array_merge([0 => (new Speciality())], $this->specialityRepository->findAll()),
+                    'choices' => /*array_merge([0 => (new Speciality())],*/$this->specialityRepository->findAll(),
                     'choice_label' => 'label',
                 ]);
         }

@@ -32,6 +32,15 @@ class ProfileController extends AbstractController
         ]);
     }
 
+        #[Route('/profile/{id}', name: 'app_public_profile')]
+        public function publicProfil(int $id, UserRepository $userRepository): Response        
+        {
+            $user = $userRepository->findOneBy(['id' => $id]);
+            return $this->render('public_profile/index.html.twig', [
+                'user' => $user,
+            ]);
+        }
+
     #[Route('/profile/languages', name: 'app_profile_language')]
     public function searchNames(Request $request, SpecialityRepository $specialityRepository, SerializerInterface $serializer): JsonResponse
     {

@@ -1,20 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PublicProfileController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="container my-3">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Marie/Documents/meet-my-dev/meet-my-dev/src/Controller/PublicProfileController.php'|file_link(0) }}">src/Controller/PublicProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Marie/Documents/meet-my-dev/meet-my-dev/templates/public_profile/index.html.twig'|file_link(0) }}">templates/public_profile/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h1>{{ user.username }}'s Profile</h1>
+				<p>{{ user.presentation }}</p>
+				<ul>
+                    <li>{{ app.user.name }}
+                        {{ app.user.firstname ?? '' }}
+                    </li>
+					<li>
+						<strong>Email:</strong>
+						{{ user.mail }}</li>
+					<li>
+						<strong>Telephone:</strong>
+						{{ user.telephone }}
+					</li>
+				</ul>
+			</div>
+			{% if is_granted('ROLE_COMPANY') %}
+				<div class="col-md-6">
+					<h2>Company Info</h2>
+							<strong>Location:</strong>
+							{{ user.location }}
+						<p>
+							<strong>Activities:</strong>
+						</p>
+						<ul>
+							{% for activity in app.user.activities %}
+								<li>{{ activity.label }}</li>
+							{% endfor %}
+						</ul>
+				</div>
+			{% endif %}
+			{% if is_granted('ROLE_DEV') %}
+				<div class="col-md-6">
+					<h2>Developer Info</h2>
+							<strong>Experience:</strong>
+							{{ app.user.experience }}
+							years</p>
+						<p>
+							<strong>Specialities:</strong>
+						</p>
+						<ul>
+							{% for speciality in app.user.specialities %}
+								<li>{{ speciality.label }}</li>
+							{% endfor %}
+						</ul>
+				</div>
+				{% endif %}
+		</div>
+	</div>
 {% endblock %}
+
