@@ -7,7 +7,9 @@
 	<span class="navbar-toggler-icon"></span>
 </button>
 <div class="collapse navbar-collapse d-flex row-reverse justify-content-end" id="navbarResponsive">
+        {% if app.user %}
             {% include 'home/search.html.twig' %}
+        {% endif %}
             <ul class="navbar-nav my-2 ms-4 my-lg-0">
                 {% if app.user %}
                     <div class="dropdown">
