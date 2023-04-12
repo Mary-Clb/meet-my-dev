@@ -40,7 +40,7 @@ class Company extends User
 
     public function getId(): ?int
     {
-        return $this->id;
+        return parent::getId();
     }
 
     public function getname(): ?string

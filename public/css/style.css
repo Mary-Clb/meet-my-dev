@@ -39,3 +39,7 @@ body{
 .select2-results {
     color:black;
 }
+
+.bg-op {
+    opacity: 0.3;
+}

@@ -6,8 +6,11 @@
 
 	<span class="navbar-toggler-icon"></span>
 </button>
-<div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto my-2 my-lg-0">
+<div class="collapse navbar-collapse d-flex row-reverse justify-content-end" id="navbarResponsive">
+        {% if app.user %}
+            {% include 'home/search.html.twig' %}
+        {% endif %}
+            <ul class="navbar-nav my-2 ms-4 my-lg-0">
                 {% if app.user %}
                     <div class="dropdown">
                         <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -22,8 +25,7 @@
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="/login">{{ 'Login'|trans }}</a></li>  
                 {% endif %}
-
             </ul>
-        </div>
+
     </div>
 </nav>
