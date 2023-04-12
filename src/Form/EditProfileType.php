@@ -2,6 +2,7 @@
 namespace App\Form;
 
 use App\Entity\Speciality;
+use App\Entity\Activity;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -14,21 +15,23 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use \Symfony\Bundle\SecurityBundle\Security;
 use App\Repository\SpecialityRepository;
+use App\Repository\ActivityRepository;
 
 class EditProfileType extends AbstractType
 {
-
     private $security;
 
     private $user;
 
     private $specialityRepository;
+    private $activityRepository;
 
-    public function __construct(Security $security, SpecialityRepository $specialityRepository)
+    public function __construct(Security $security, SpecialityRepository $specialityRepository, ActivityRepository $activityRepository)
     {
         $this->security = $security;
         $this->user = $this->security->getUser();
         $this->specialityRepository = $specialityRepository;
+        $this->activityRepository = $activityRepository;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -83,21 +86,25 @@ class EditProfileType extends AbstractType
                 ])
                 ->add('publique', CheckboxType::class, [
                     'label' => 'Publique',
-                ]);       
+                   'required' => false,
+                ])
+                ->add('activities', ChoiceType::class, [
+                    'label' => 'Activities',
+                    'multiple' => true,
+                    'required' => false,
+                    'placeholder' => 'Choose an language',
+                    'choices' => array_merge([0 => (new Activity())], $this->activityRepository->findAll()),
+                    'choice_label' => 'label',
+                ]);
         }
-        
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
-
         $resolver->setDefaults([
             'data_class' => User::class,
             'dev' => in_array('ROLE_DEV', $this->user->getRoles()),
             'company' => in_array('ROLE_COMPANY', $this->user->getRoles()),
         ]);
-        
-       
     }
 }

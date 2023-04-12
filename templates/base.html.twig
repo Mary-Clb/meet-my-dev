@@ -31,38 +31,121 @@
 <script>
 
 	$(document).ready(function () {
-    $('#editProfileModal').on('shown.bs.modal', function() {
 
-    $('#edit_profile_specialities').select2({
-        dropdownParent: $('#editProfileModal'),
+        let select = "";
+        let url = ""
+        let profile = false;
 
-        ajax: {
-        url: '/profile/languages',
-        dataType: 'json',
-        delay: 0,
-        data: function (params) {
-        return {filter: params.term};
-        },
-        templateResult: function(data) {
-            return data.label;
-        },
-        processResults: function (data) {
-        const languages = JSON.parse(data.languages);
-        return {
-            results: languages.map(function (language) {
-                return {id: language.id, text: language.label};
+        if ($("#edit_profile_specialities").length) {
+            // Initialize select2 for the specialities select element
+            select  = $("#edit_profile_specialities");
+            url = '/profile/languages'
+            profile = true
+        }else if ($("#edit_profile_activities").length) {
+            // Initialize select2 for the activities select element
+            select  = $("#edit_profile_activities");
+            url = '/profile/activities'
+            profile = true  
+        }else if ($("#dev_specialities").length) {
+            // Initialize select2 for the specialities select element
+            select  = $("#dev_specialities");
+            url = '/profile/languages'
+        }else if ($("#company_activities").length) {
+            // Initialize select2 for the activities select element
+            select  = $("#company_activities");
+            url = '/profile/activities'
+        }
 
-            })
-        };
-        },
-        cache: true
-        },
-        placeholder: 'Search languages...'
-        });
-        })});
+        if(profile === true){
+            $('#editProfileModal').on('shown.bs.modal', function() {
+                select.select2({
+
+                dropdownParent: $('#editProfileModal'),
+
+                ajax: {
+                url: url,
+                dataType: 'json',
+                delay: 0,
+                data: function (params) {
+                return {filter: params.term};
+                },
+                templateResult: function(data) {
+                    return data.label;
+                },
+                processResults: function (data) {
+                const languages = JSON.parse(data.options);
+                return {
+                    results: languages.map(function (option) {
+
+                    return {id: option.id, text: option.label};
+                    })
+                };
+                },
+                cache: true
+                },
+                placeholder: 'Search languages...'
+                })
+            });  
+        }else{
+            select.select2({
+
+                ajax: {
+                url: url,
+                dataType: 'json',
+                delay: 0,
+                data: function (params) {
+                return {filter: params.term};
+                },
+                templateResult: function(data) {
+                    return data.label;
+                },
+                processResults: function (data) {
+                const languages = JSON.parse(data.options);
+                return {
+                    results: languages.map(function (option) {
+
+                    return {id: option.id, text: option.label};
+                    })
+                };
+                },
+                cache: true
+                },
+                placeholder: 'Search languages...'
+                })
+        }
+
+        // function initSelect(){
+        //     select.select2({
+
+        //         dropdownParent: $('#editProfileModal'),
+
+        //         ajax: {
+        //         url: url,
+        //         dataType: 'json',
+        //         delay: 0,
+        //         data: function (params) {
+        //         return {filter: params.term};
+        //         },
+        //         templateResult: function(data) {
+        //             return data.label;
+        //         },
+        //         processResults: function (data) {
+        //         const languages = JSON.parse(data.options);
+        //         return {
+        //             results: languages.map(function (option) {
+
+        //             return {id: option.id, text: option.label};
+        //             })
+        //         };
+        //         },
+        //         cache: true
+        //         },
+        //         placeholder: 'Search languages...'
+        //         })
+        // };
+    });
 </script>
 
 
     </body>
 </html>
-

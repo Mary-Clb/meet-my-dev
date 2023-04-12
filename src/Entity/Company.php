@@ -103,24 +103,12 @@ class Company extends User
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Activity>
+     * @return array
      */
-    public function getactivities(): Collection
+    public function getactivities(): ?array
     {
-        return $this->activities;
+        return $this->activities->toArray();
     }
 
     public function addActivity(Activity $activity): self

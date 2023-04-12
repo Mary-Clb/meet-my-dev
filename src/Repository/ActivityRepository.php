@@ -39,6 +39,16 @@ class ActivityRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByLike(string $filter){
+        $qb = $this->createQueryBuilder('a')
+            ->where('a.label LIKE :filter')
+            ->setParameter('filter', '%'.$filter.'%')
+            ->orderBy('a.label', 'ASC')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
 //    /**
 //     * @return Activity[] Returns an array of Activity objects
 //     */

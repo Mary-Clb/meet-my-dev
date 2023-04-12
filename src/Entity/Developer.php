@@ -74,7 +74,7 @@ class Developer extends User
     }
 
     /**
-     * @return Collection<int, Speciality>
+     * @return array
      */
     public function getSpecialities(): array
     {

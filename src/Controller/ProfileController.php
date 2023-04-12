@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ActivityRepository;
 use App\Repository\SpecialityRepository;
 use App\Form\EditProfileType;
 use App\Repository\UserRepository;
@@ -33,7 +34,7 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/languages', name: 'app_profile_language')]
-    public function searchNames(Request $request, SpecialityRepository $specialityRepository, SerializerInterface $serializer): JsonResponse
+    public function searchLanguage(Request $request, SpecialityRepository $specialityRepository, SerializerInterface $serializer): JsonResponse
     {
         $filter = $request->query->get('filter');
         $specialities = [];
@@ -44,7 +45,23 @@ class ProfileController extends AbstractController
         }
         
         return new JsonResponse([
-            'languages' => $serializer->serialize($specialities, 'json',['groups' => ['list_languages']]),
+            'options' => $serializer->serialize($specialities, 'json',['groups' => ['list_languages']]),
+        ]);
+    }
+
+     #[Route('/profile/activities', name: 'app_profile_activities')]
+    public function searchActivities(Request $request, ActivityRepository $activityRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $filter = $request->query->get('filter');
+        $specialities = [];
+        if($filter){
+            $specialities = $activityRepository->findByLike($filter);
+        }else{
+            $specialities = $activityRepository->findAll();
+        }
+        
+        return new JsonResponse([
+            'options' => $serializer->serialize($specialities, 'json',['groups' => ['list_activities']]),
         ]);
     }
 
