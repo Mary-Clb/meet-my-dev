@@ -9,8 +9,8 @@
 				<h1>{{ user.username }}'s Profile</h1>
 				<p>{{ user.presentation }}</p>
 				<ul>
-                    <li>{{ app.user.name }}
-                        {{ app.user.firstname ?? '' }}
+                    <li>{{ user.name }}
+                        {{ user.firstname ?? '' }}
                     </li>
 					<li>
 						<strong>Email:</strong>
@@ -21,7 +21,8 @@
 					</li>
 				</ul>
 			</div>
-			{% if is_granted('ROLE_COMPANY') %}
+			{% if 'ROLE_COMPANY' in user.roles %}
+
 				<div class="col-md-6">
 					<h2>Company Info</h2>
 							<strong>Location:</strong>
@@ -30,28 +31,28 @@
 							<strong>Activities:</strong>
 						</p>
 						<ul>
-							{% for activity in app.user.activities %}
+							{% for activity in user.activities %}
 								<li>{{ activity.label }}</li>
 							{% endfor %}
 						</ul>
 				</div>
 			{% endif %}
-			{% if is_granted('ROLE_DEV') %}
+			{% if 'ROLE_DEV' in user.roles %}
 				<div class="col-md-6">
 					<h2>Developer Info</h2>
 							<strong>Experience:</strong>
-							{{ app.user.experience }}
+							{{ user.experience }}
 							years</p>
 						<p>
 							<strong>Specialities:</strong>
 						</p>
 						<ul>
-							{% for speciality in app.user.specialities %}
+							{% for speciality in user.specialities %}
 								<li>{{ speciality.label }}</li>
 							{% endfor %}
 						</ul>
 				</div>
-				{% endif %}
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

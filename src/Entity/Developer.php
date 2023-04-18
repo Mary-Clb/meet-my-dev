@@ -32,9 +32,9 @@ class Developer extends User
         $this->specialities = new ArrayCollection();
     }
 
-    public function getId(): ?int
+   public function getId(): ?int
     {
-        return $this->id;
+        return parent::getId();
     }
 
     public function getname(): ?string
