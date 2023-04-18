@@ -33,16 +33,16 @@ class ProfileController extends AbstractController
         ]);
     }
 
-        #[Route('/profile/{id}', name: 'app_public_profile')]
-        public function publicProfil(int $id, UserRepository $userRepository): Response        
-        {
-            $user = $userRepository->findOneBy(['id' => $id]);
-            return $this->render('public_profile/index.html.twig', [
-                'user' => $user,
-            ]);
-        }
+    #[Route('/profile/{id}', name: 'app_public_profile')]
+    public function publicProfil(int $id, UserRepository $userRepository): Response        
+    {
+        $user = $userRepository->findOneBy(['id' => $id]);
+        return $this->render('public_profile/index.html.twig', [
+            'user' => $user,
+        ]);
+    }
 
-    #[Route('/profile/languages', name: 'app_profile_language')]
+    #[Route('/api/languages', name: 'api_language')]
     public function searchLanguage(Request $request, SpecialityRepository $specialityRepository, SerializerInterface $serializer): JsonResponse
     {
         $filter = $request->query->get('filter');
@@ -58,7 +58,7 @@ class ProfileController extends AbstractController
         ]);
     }
 
-     #[Route('/profile/activities', name: 'app_profile_activities')]
+    #[Route('/api/activities', name: 'api_activities')]
     public function searchActivities(Request $request, ActivityRepository $activityRepository, SerializerInterface $serializer): JsonResponse
     {
         $filter = $request->query->get('filter');
@@ -70,7 +70,7 @@ class ProfileController extends AbstractController
         }
         
         return new JsonResponse([
-            'options' => $serializer->serialize($specialities, 'json',['groups' => ['list_activities']]),
+            'options' => $serializer->serialize($specialities, 'json', ['groups' => ['list_activities']]),
         ]);
     }
 

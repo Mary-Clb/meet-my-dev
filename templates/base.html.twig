@@ -39,21 +39,21 @@
         if ($("#edit_profile_specialities").length) {
             // Initialize select2 for the specialities select element
             select  = $("#edit_profile_specialities");
-            url = '/profile/languages'
+            url = '/api/languages'
             profile = true
         }else if ($("#edit_profile_activities").length) {
             // Initialize select2 for the activities select element
             select  = $("#edit_profile_activities");
-            url = '/profile/activities'
+            url = '/api/activities'
             profile = true  
         }else if ($("#dev_specialities").length) {
             // Initialize select2 for the specialities select element
             select  = $("#dev_specialities");
-            url = '/profile/languages'
+            url = '/api/languages'
         }else if ($("#company_activities").length) {
             // Initialize select2 for the activities select element
             select  = $("#company_activities");
-            url = '/profile/activities'
+            url = '/api/activities'
         }
 
         if(profile === true){

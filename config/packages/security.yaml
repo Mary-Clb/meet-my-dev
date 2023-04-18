@@ -49,6 +49,7 @@ security:
         - { path: ^/login, role: PUBLIC_ACCESS }
         - { path: ^/registerDev, role: PUBLIC_ACCESS }
         - { path: ^/registerCompany, role: PUBLIC_ACCESS }
+        - { path: ^/api, role: PUBLIC_ACCESS }
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/, role: ROLE_USER }
 
