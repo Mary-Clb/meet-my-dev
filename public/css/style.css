@@ -43,3 +43,16 @@ body{
 .bg-op {
     opacity: 0.3;
 }
+
+.dropdown-toggle-split::after {
+    display: none;
+}
+
+.input-group-btn .btn {
+    border-radius: 0;
+}
+
+.input-group-btn:last-child>.btn {
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}

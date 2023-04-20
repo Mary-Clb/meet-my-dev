@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container row">
+        <div class="col-6">
+            <h1 class="text-center my-3">Qui sommes-nous ?</h1>
+            <div class="text-center mx-auto">
+                <p>Bienvenue sur <b>Meet my Dev</b> le site qui vous permet de trouver le développeur parfait pour votre entreprise sans avoir à subir des interviews interminables.</p>
+                <p>Nous sommes une équipe de passionnés de l'informatique qui ont décidé de faciliter la vie des entreprises en leur offrant une plateforme simple et efficace pour trouver les talents dont elles ont besoin.</p>
+                <p>Nous avons travaillé dur pour créer une expérience utilisateur intuitive et agréable pour tous nos utilisateurs, qu'ils soient des entreprises à la recherche de talents ou des développeurs à la recherche d'une nouvelle expérience.</p>
+                <p>Nous croyons que chaque développeur a quelque chose d'unique à offrir, et nous sommes là pour aider les entreprises à trouver cette personne spéciale qui fera toute la différence dans leur projet.</p>
+                <p>Alors si vous êtes à la recherche d'un développeur parfait pour rejoindre votre équipe, ou si vous êtes un développeur à la recherche de votre prochain défi, rejoignez-nous sur Meet my dev. Nous avons hâte de vous aider à trouver la correspondance parfaite !</p>
+            </div>
+        </div>
+        <div class="col-6 d-flex justify-content-center align-items-center">
+            <img src="{{ asset('images/Devs.png') }}" class="img-fluid" alt="Image">
+        </div>
+	</div>
+{% endblock %}

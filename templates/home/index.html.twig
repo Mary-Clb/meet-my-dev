@@ -3,6 +3,38 @@
 {% block title %}Meet My Dev{% endblock %}
 
 {% block body %}
+<div class="container mt-3">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<form>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search..."/>
+                    <div class="input-group-btn">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Options
+                            </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div class="dropdown-item">
+                                        <input type="checkbox" name="option1" id="option1" checked>
+                                        <label for="option1">Option 1</label>
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <input type="checkbox" name="option2" id="option2" checked>
+                                        <label for="option2">Option 2</label>
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <input type="checkbox" name="option3" id="option3" checked>
+                                        <label for="option3">Option 3</label>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 <div class="row my-3 cardContainer py-3 px-1 rounded-3">
 {% if is_granted('ROLE_DEV') %}
@@ -38,5 +70,4 @@
     {% endfor %}
 {% endif %}
 </div>
-
 {% endblock %}

@@ -4,7 +4,7 @@
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 
 
-	<span class="navbar-toggler-icon"></span>
+<span class="navbar-toggler-icon"></span>
 </button>
 <div class="collapse navbar-collapse d-flex row-reverse justify-content-end" id="navbarResponsive">
         {% if app.user %}
@@ -23,9 +23,9 @@
                         </ul>
                     </div>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="/login">{{ 'Login'|trans }}</a></li>  
+                    <li class="nav-item"><a class="nav-link" href="/login">{{ 'Login'|trans }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">A propos</a></li>
                 {% endif %}
             </ul>
-
     </div>
 </nav>
