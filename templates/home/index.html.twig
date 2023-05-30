@@ -6,68 +6,95 @@
 <div class="container mt-3">
 	<div class="row justify-content-center">
 		<div class="col-md-6">
-			<form>
+			<form action="/" method="post">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search..."/>
+					<input name="search" type="text" class="form-control" placeholder="Search..." value='{{ search ?: '' }}'/>
                     <div class="input-group-btn">
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Options
+                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Rechercher dans
                             </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <div class="dropdown-item">
-                                        <input type="checkbox" name="option1" id="option1" checked>
-                                        <label for="option1">Option 1</label>
+                                        <input type="checkbox" name="name" id="name" {{ name ? 'checked' : ''}}>
+                                        <label for="name">Nom</label>
                                     </div>
                                     <div class="dropdown-item">
-                                        <input type="checkbox" name="option2" id="option2" checked>
-                                        <label for="option2">Option 2</label>
+                                        <input type="checkbox" name="presentation" id="presentation" {{ presentation ? 'checked' : ''}}>
+                                        <label for="presentation">Présentation</label>
                                     </div>
-                                    <div class="dropdown-item">
-                                        <input type="checkbox" name="option3" id="option3" checked>
-                                        <label for="option3">Option 3</label>
-                                    </div>
+                                    {% if is_granted('ROLE_DEV') %}
+                                            <div class="dropdown-item">
+                                                <input type="checkbox" name="activities" id="activities" {{ activities ? 'checked' : ''}}>
+                                                <label for="activities">Activités</label>
+                                            </div>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_COMPANY') %}
+                                            <div class="dropdown-item">
+                                                <input type="checkbox" name="specialities" id="specialities" {{ specialities ? 'checked' : ''}}>
+                                                <label for="specialities">Activités</label>
+                                            </div>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                            <div class="dropdown-item">
+                                                <input type="checkbox" name="activities" id="activities" {{ activities ? 'checked' : ''}}>
+                                                <label for="activities">Activités</label>
+                                            </div>
+                                            <div class="dropdown-item">
+                                                <input type="checkbox" name="specialities" id="specialities" {{ specialities ? 'checked' : ''}}>
+                                                <label for="specialities">Activités</label>
+                                            </div>
+                                    {% endif %}
                                 </div>
                         </div>
                     </div>
+                        <button class="btn btn-light" type="submit">🔍</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
 
-<div class="row my-3 cardContainer py-3 px-1 rounded-3">
-{% if is_granted('ROLE_DEV') %}
-    {% for comp in result %}
-            <div class="col-sm-6">
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ comp.username }}</h5>
-                        <p class="card-text">{{ comp.presentation }}</p>
-                                {% for activity in comp.activities %}
-                                    <span> {{ activity.label }} </span>
-                                {% endfor %}
-                        <a href="/profile/{{ comp.id }}" class="btn btn-dark"> Voir profil</a>
-                    </div>
-                </div>
-            </div>
-    {% endfor %}
-{% endif %}
-{% if is_granted('ROLE_COMPANY') %}
-    {% for dev in result %}
-        <div class="col-sm-6">
-            <div class="card my-3">
-                <div class="card-body">
-                    <h5 class="card-title">{{ dev.name }} {{ dev.firstname }}</h5>
-                        <p class="card-text">{{ dev.presentation ?? "pas d'informations" }}</p>
-                            {% for spe in dev.specialities %}
-                                <span> {{ spe.label }} </span>
-                            {% endfor %}
-                        <a href="/profile/{{ dev.id }}" class="btn btn-dark">Voir profil</a>
-                </div>
-            </div>    
-        </div>
-    {% endfor %}
-{% endif %}
+<div class="row my-3 cardContainer py-3 px-1 rounded-3 justify-content-center">
+{% for u in result %}
+
+<div class="card col-sm-5">
+  <div class="row g-0">
+    <div class="col-md-4 image-container">
+      <img src={{ asset("images/you2.png") }} class="card-img" alt="User Image">
+    </div>
+    <div class="col-md-8">
+        <div class="card-body">
+        {% if u|instanceof('Developer') %}
+            <h5 class="card-title">{{ u.name }} {{ u.firstname }}</h5>
+            <p class="card-text">{{ u.presentation | truncate(125) ?: "Aucune information"  }}</p>
+            <ul class="list-group list-group-horizontal">
+                {% for speciality in u.specialities|slice(0,3) %}
+                    <li class="list-group-item">{{ speciality.label }}</li>
+                {% endfor %}
+                {% if u.specialities|length > 3 %}
+                    <li class="list-group-item">...</li>
+                {% endif %}
+            </ul>
+        {% endif %}
+        {% if u|instanceof('Company') %}
+            <h5 class="card-title">{{ u.username }}</h5>
+            <p class="card-text">{{ u.presentation |truncate(125) ?: "Aucune information" }}</p>
+            <ul class="list-group list-group-horizontal">
+                {% for activity in u.activities|slice(0,3) %}
+                    <li class="list-group-item">{{ activity.label }}</li>
+                {% endfor %}
+                {% if u.activities|length > 3 %}
+                    <li class="list-group-item">...</li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+        <a href="{{ path('app_public_profile', {id: u.id}) }}" class="btn btn-primary">Voir profil</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 </div>
 {% endblock %}

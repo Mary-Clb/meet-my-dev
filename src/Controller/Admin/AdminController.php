@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Speciality;
 use App\Entity\Activity;
+use App\Entity\Developer;
+use App\Entity\Company;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -51,6 +53,8 @@ class AdminController extends AbstractDashboardController
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'app_home');
         yield MenuItem::linkToCrud('Spécialités', 'fas fa-map-marker-alt', Speciality::class);
         yield MenuItem::linkToCrud('Activités', 'fas fa-map-marker-alt', Activity::class);
+        yield MenuItem::linkToCrud('Développeurs', 'fas fa-map-marker-alt', Developer::class);
+        yield MenuItem::linkToCrud('Entreprises', 'fas fa-map-marker-alt', Company::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

@@ -6,6 +6,7 @@ use App\Entity\Developer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\InputBag;
 
 /**
  * @extends ServiceEntityRepository<Developer>
@@ -40,19 +41,37 @@ class DeveloperRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByString(string $searchString, $page = 0, $pageLimit = 10): array
+    public function findByString(InputBag $input, $page = 0, $pageLimit = 10): array
     {
+        $searchString = $input->get('search');
+
         $qb = $this->getEntityManager()->createQUeryBuilder();
 
         $qb->select('u')
         ->from('App\Entity\Developer', 'u')
-        ->leftJoin('u.specialities', 'l')
-        ->where($qb->expr()->orX(
-            $qb->expr()->like('u.username', ':searchString'),
-            $qb->expr()->like('u.presentation', ':searchString'),
-            $qb->expr()->like('l.label', ':searchString')
-        ))
-        ->setParameter('searchString', '%'.$searchString.'%');
+        ->leftJoin('u.specialities', 's');
+        $orX = $qb->expr()->orX();
+        $hasCondition = false;
+
+        if ($input->get('name')) {
+            $orX->add($qb->expr()->like('u.username', ':searchString'));
+            $hasCondition = true;
+        }
+
+        if ($input->get('presentation')) {
+            $orX->add($qb->expr()->like('u.presentation', ':searchString'));
+            $hasCondition = true;
+        }
+
+        if ($input->get('specialities')) {
+            $orX->add($qb->expr()->like('s.label', ':searchString'));
+            $hasCondition = true;
+        }
+
+        if ($hasCondition) {
+            $qb->andWhere($orX)
+            ->setParameter('searchString', '%'.$searchString.'%');
+        }
 
         $result = array_chunk($qb->getQuery()->getResult(), $pageLimit, true);
 

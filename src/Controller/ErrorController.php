@@ -16,6 +16,8 @@ class ErrorController extends AbstractController
 
         if (in_array($statusCode, [404])) {
             $template = 'errors/' . $statusCode . '.html.twig';
+        }else{
+            $template = 'errors/error.html.twig';
         }
 
         $content = $exception->getMessage();

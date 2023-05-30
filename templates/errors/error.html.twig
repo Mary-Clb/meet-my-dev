@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center align-items-center mt-5">
+	<div class="text-center">
+        <h1>Erreur</h1>
+		<p>Les développeurs sont sur le coup !</p>
+        <img src="https://media.tenor.com/PqJ7yMX9GFoAAAAC/bruce-almighty-comedy.gif">
+        <br>
+		<p>{{ content }}</p>
+		<a href="{{ path('app_home')}}" class="btn btn-secondary mt-4">Retour a l'accueil</a>
+	</div>
+</div>
+
+{% endblock %}

@@ -18,13 +18,13 @@ class HomeController extends AbstractController
     {
         $searchResult = [];
 
-        $search = $search ?: $request->request->get("search");
-        
-        if($search){
+        $input = $search ?: $request->request;
+
+        if($input){
             if ($this->isGranted('ROLE_DEV')){
-                $searchResult = $companyRepository->findByString($search, $page);
+                $searchResult = $companyRepository->findByString($input, $page);
             }elseif($this->isGranted('ROLE_COMPANY')){
-                $searchResult = $developerRepository->findByString($search, $page);  
+                $searchResult = $developerRepository->findByString($input, $page);  
             }
         }else{
             if ($this->isGranted('ROLE_COMPANY')){
@@ -34,12 +34,13 @@ class HomeController extends AbstractController
             }
         }
 
-        
-
-        
-
         return $this->render("home/index.html.twig", [
             'result'  => $searchResult,
+            'search' => $search ?: $input->get('search'),
+            'name' => $input->get('name'),
+            'presentation' => $input->get('presentation'),
+            'specialities' => $input->get('specialities'),
+            'activities' => $input->get('activities')
         ]);
     }
 }

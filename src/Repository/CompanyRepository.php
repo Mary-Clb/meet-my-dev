@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Company;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\InputBag;
 
 /**
  * @extends ServiceEntityRepository<Company>
@@ -39,19 +40,37 @@ class CompanyRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByString(string $searchString, $page = 0, $pageLimit = 10): array
+    public function findByString(InputBag $input, $page = 0, $pageLimit = 10): array
     {
+        $searchString = $input->get('search');
+
         $qb = $this->getEntityManager()->createQUeryBuilder();
 
         $qb->select('u')
         ->from('App\Entity\Company', 'u')
-        ->leftJoin('u.activities', 'a')
-        ->where($qb->expr()->orX(
-            $qb->expr()->like('u.username', ':searchString'),
-            $qb->expr()->like('u.presentation', ':searchString'),
-            $qb->expr()->like('a.label', ':searchString')
-        ))
-        ->setParameter('searchString', '%'.$searchString.'%');
+        ->leftJoin('u.activities', 'a');
+        $orX = $qb->expr()->orX();
+        $hasCondition = false;
+
+        if ($input->get('name')) {
+            $orX->add($qb->expr()->like('u.username', ':searchString'));
+            $hasCondition = true;
+        }
+
+        if ($input->get('presentation')) {
+            $orX->add($qb->expr()->like('u.presentation', ':searchString'));
+            $hasCondition = true;
+        }
+
+        if ($input->get('activities')) {
+            $orX->add($qb->expr()->like('a.label', ':searchString'));
+            $hasCondition = true;
+        }
+
+        if ($hasCondition) {
+            $qb->andWhere($orX)
+            ->setParameter('searchString', '%'.$searchString.'%');
+        }
 
         $result = array_chunk($qb->getQuery()->getResult(), $pageLimit, true);
 
