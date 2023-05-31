@@ -25,12 +25,18 @@ class HomeController extends AbstractController
                 $searchResult = $companyRepository->findByString($input, $page);
             }elseif($this->isGranted('ROLE_COMPANY')){
                 $searchResult = $developerRepository->findByString($input, $page);  
+            }elseif($this->isGranted('ROLE_ADMIN')){
+                $searchResult = $companyRepository->findByString($input, $page);
+                $searchResult = array_merge($searchResult, $developerRepository->findByString($input, $page));  
             }
         }else{
             if ($this->isGranted('ROLE_COMPANY')){
                 $searchResult = $developerRepository->findAll();
             } elseif ($this->isGranted('ROLE_DEV')){
                 $searchResult = $companyRepository->findAll();
+            } elseif($this->isGranted('ROLE_ADMIN')){
+                $searchResult = $companyRepository->findAll();
+                $searchResult = array_merge($searchResult, $developerRepository->findAll());
             }
         }
 
@@ -40,7 +46,8 @@ class HomeController extends AbstractController
             'name' => $input->get('name'),
             'presentation' => $input->get('presentation'),
             'specialities' => $input->get('specialities'),
-            'activities' => $input->get('activities')
+            'activities' => $input->get('activities'),
+            'nav_search' => false,
         ]);
     }
 }

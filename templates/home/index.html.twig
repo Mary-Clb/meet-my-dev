@@ -42,7 +42,7 @@
                                             </div>
                                             <div class="dropdown-item">
                                                 <input type="checkbox" name="specialities" id="specialities" {{ specialities ? 'checked' : ''}}>
-                                                <label for="specialities">Activités</label>
+                                                <label for="specialities">Spécialités</label>
                                             </div>
                                     {% endif %}
                                 </div>
@@ -67,7 +67,8 @@
         <div class="card-body">
         {% if u|instanceof('Developer') %}
             <h5 class="card-title">{{ u.name }} {{ u.firstname }}</h5>
-            <p class="card-text">{{ u.presentation | truncate(125) ?: "Aucune information"  }}</p>
+                <p class="card-text">{{ u.presentation | truncate(125) ?: "Aucune information"  }}</p>
+
             <ul class="list-group list-group-horizontal">
                 {% for speciality in u.specialities|slice(0,3) %}
                     <li class="list-group-item">{{ speciality.label }}</li>
@@ -80,6 +81,7 @@
         {% if u|instanceof('Company') %}
             <h5 class="card-title">{{ u.username }}</h5>
             <p class="card-text">{{ u.presentation |truncate(125) ?: "Aucune information" }}</p>
+
             <ul class="list-group list-group-horizontal">
                 {% for activity in u.activities|slice(0,3) %}
                     <li class="list-group-item">{{ activity.label }}</li>

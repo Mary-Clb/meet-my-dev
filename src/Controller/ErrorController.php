@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Exception;
 use Throwable;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
@@ -21,13 +22,11 @@ class ErrorController extends AbstractController
         }
 
         $content = $exception->getMessage();
-
         return new Response(
-            $this->container->get('twig')->render(
-                $template,
-                ['exception' => FlattenException::create($exception), 'status_code' => $statusCode, 'status_text' => Response::$statusTexts[$statusCode], 'content' => $content]
-            ),
-            $statusCode
-        );
+        $this->container->get('twig')->render(
+            $template,
+            ['exception' => $exception->__toString(), 'status_code' => $statusCode, 'status_text' => Response::$statusTexts[$statusCode], 'content' => $content]
+        ),
+        $statusCode);
     }
 }
