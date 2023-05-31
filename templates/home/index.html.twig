@@ -79,7 +79,7 @@
             </ul>
         {% endif %}
         {% if u|instanceof('Company') %}
-            <h5 class="card-title">{{ u.username }}</h5>
+            <h5 class="card-title">{{ u.name }}</h5>
             <p class="card-text">{{ u.presentation |truncate(125) ?: "Aucune information" }}</p>
 
             <ul class="list-group list-group-horizontal">
