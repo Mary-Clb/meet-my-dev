@@ -44,6 +44,7 @@ Install (uncomment) the following extensions in your php.ini file:
 
 - `pdo_mysql`
 - `intl`
+
 Provide the correct database connection information in the .env file.
 
 # Commands to Run | In your command prompt, navigate to the project directory
