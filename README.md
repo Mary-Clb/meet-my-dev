@@ -30,6 +30,10 @@ Renseignez les bonnes informations de connection à la base de données dans le 
 - Il peut depuis cette interface gérer les utilisateurs ainsi que les différentes entités.
 - Il y'a déja des faux utilisateurs enregistrés ainsi que quelques spécialités et activités.
 
+
+----------------------------------------------------------------------
+
+
 # Prerequisites
 -Composer
 -Symfony CLI
