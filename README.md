@@ -40,8 +40,8 @@ Renseignez les bonnes informations de connection à la base de données `MySQL` 
 
 
 # Prerequisites
--Composer
--Symfony CLI
+- Composer
+- Symfony CLI
 
 #How to Install
 
